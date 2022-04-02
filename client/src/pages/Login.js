@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Form, Input, Button, message, Spin } from 'antd';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
@@ -22,6 +22,12 @@ function Login() {
       message.error('login failed');
     }
   };
+
+  useEffect(() => {
+    if (localStorage.getItem('resumebuilder-user')) {
+      navigate('/home');
+    }
+  });
 
   return (
     <div className="auth-parent">

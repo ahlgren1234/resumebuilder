@@ -1,11 +1,13 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Form, Input, Button, message, Spin } from 'antd';
 import '../resources/authentication.css';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 function Register() {
   const [loading, setLoading] = useState(false);
+
+  const navigate = useNavigate();
 
   const onFinish = async (values) => {
     setLoading(true);
@@ -18,6 +20,12 @@ function Register() {
       message.error('registration failed');
     }
   };
+
+  useEffect(() => {
+    if (localStorage.getItem('resumebuilder-user')) {
+      navigate('/home');
+    }
+  });
 
   return (
     <div className="auth-parent">

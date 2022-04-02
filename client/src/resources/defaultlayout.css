@@ -18,6 +18,11 @@
   font-size: 22px;
 }
 
+.header button {
+  border: 1px solid white !important;
+  color: rgba(255, 255, 255, 0.5) !important;
+}
+
 .content {
   height: 87%;
   border: 1px solid gray;
