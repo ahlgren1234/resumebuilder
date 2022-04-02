@@ -1,25 +1,31 @@
-import React from 'react';
-import { Form, Input, Button, message } from 'antd';
+import React, { useState } from 'react';
+import { Form, Input, Button, message, Spin } from 'antd';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import '../resources/authentication.css';
 
 function Login() {
+  const [loading, setLoading] = useState(false);
+
   const navigate = useNavigate();
 
   const onFinish = async (values) => {
+    setLoading(true);
     try {
       const user = await axios.post('/api/user/login', values);
       message.success('login successful');
       localStorage.setItem('resumebuilder-user', JSON.stringify(user.data));
+      setLoading(false);
       navigate('/home');
     } catch (error) {
+      setLoading(false);
       message.error('login failed');
     }
   };
 
   return (
     <div className="auth-parent">
+      {loading && <Spin size="large" />}
       <Form layout="vertical" onFinish={onFinish}>
         <h1>Login</h1>
         <hr />
